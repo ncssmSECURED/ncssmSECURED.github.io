@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - "4"
+
+before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+
+install:
+  - npm install
+
+before_script:
+  - npm install -g gulpjs/gulp-cli
+  - npm install --save-dev gulpjs/gulp#4.0
+  - gulp --version
+  - npm install --save-dev babel-core
+
+script:
+  - gulp compile
+
+cache:
+  directories:
+      - "node_modules"
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  repo: ncssmSECURED/ncssmSECURED.github.io
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
